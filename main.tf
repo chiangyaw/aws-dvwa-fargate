@@ -64,7 +64,7 @@ resource "aws_ecs_cluster" "dvwa_cluster" {
 
 # IAM Role for ECS Task Execution
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "ecsTaskExecutionRole"
+  name = "becsTaskExecutionRole"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -99,6 +99,7 @@ resource "aws_ecs_task_definition" "dvwa_task" {
       name      = "dvwa-container"
       image     = "vulnerables/web-dvwa"
       essential = true
+      entryPoint = ["/main.sh"]
       portMappings = [
         {
           containerPort = 80
